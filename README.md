@@ -12,4 +12,8 @@ Project ideés and such is on https://trello.com/b/zsDgcm1L/king-of-nordic-bot
 It is specially built to give the viewers better and funnier time in the channel. 
 
 https://twitch.tv/kingofnordic
+http://kingofnordic.com/
 
+It uses:
+https://docs.tmijs.org/
+https://www.npmjs.com/package/mysql/
