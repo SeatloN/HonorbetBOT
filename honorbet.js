@@ -40,73 +40,78 @@ client.on("chat", function(channel, userstate, message, self) {
     // Lets bring in the whole array to work our magic!
 
     country = WordArray[1].toLowerCase(); //console.log(country);
-    score = WordArray[2]; //console.log(score);
-    // We are going to start matching everything to just get correct values in score ! 
+    score = WordArray[2]; //console.log(score); //console.log(score.length);
 
-      ToMatchScore = score.split("-");
-      if (WinnerScore.indexOf(ToMatchScore[0]) >= 0) {
-        //client.say("kingofnordic", "Winner: "+ ToMatchScore[0]);
-        //console.log("Winner: "+ ToMatchScore[0]);
-        WinScore = 1;
-      } else {
-        WinScore = 0;
-      }
-      if (LoserScore.indexOf(ToMatchScore[1]) >= 0) {
-        //client.say("kingofnordic", "Loser: "+ ToMatchScore[1]);
-        //console.log("Loser: "+ ToMatchScore[1]);
-        LoseScore = 1;
-      } else {
-        LoseScore = 0;
-      }
+    // Checking that the country is correct. 
+    if (CountryCheck.indexOf(country) >= 0) {
+      //console.log("Country is a match");
+      MatchCountry = 1;
+    } else {
+      MatchCountry = 0;
+    }
+    //console.log("Found Country: "+MatchCountry);
+    /*
+    End country check feature.
+    */
+    if (MatchCountry === 1 && score.length >= 4 && score.length <= 5 ) {
 
-      if (ToMatchScore[0] === "16") {
-        // Check if loser is in the 
-        if (Match16.indexOf(ToMatchScore[1]) >= 0) {
-          //console.log("Loser score is alright for 16: "+ ToMatchScore[1]);
-          Check16 = 1;
-        } else {
-          Check16 = 0;
-        }
-      }
-      if (ToMatchScore[0] === "19") {
-        if (Match19.indexOf(ToMatchScore[1]) >= 0) {
-          //console.log("Loser score is alright for 19: "+ ToMatchScore[1]);
-          Check19 = 1;
-        } else {
-          Check19 = 0;
-        }
-      }
-      if (ToMatchScore[0] === "22") {
-        if (Match22.indexOf(ToMatchScore[1]) >= 0) {
-          //console.log("Loser score is alright for 22: "+ ToMatchScore[1]);
-          Check22 = 1;
-        } else {
-          Check22 = 0;
-        }
-      }
+          // We are going to start matching everything to just get correct values in score ! 
 
-      //console.log("Found 16: "+Check16);
-      //console.log("Found 19: "+Check19);
-      //console.log("Found 22: "+Check22);
+          ToMatchScore = score.split("-");
+          if (WinnerScore.indexOf(ToMatchScore[0]) >= 0) {
+            //client.say("kingofnordic", "Winner: "+ ToMatchScore[0]);
+            //console.log("Winner: "+ ToMatchScore[0]);
+            WinScore = 1;
+          } else {
+            WinScore = 0;
+          }
+          if (LoserScore.indexOf(ToMatchScore[1]) >= 0) {
+            //client.say("kingofnordic", "Loser: "+ ToMatchScore[1]);
+            //console.log("Loser: "+ ToMatchScore[1]);
+            LoseScore = 1;
+          } else {
+            LoseScore = 0;
+          }
+    
+          if (ToMatchScore[0] === "16") {
+            // Check if loser is in the 
+            if (Match16.indexOf(ToMatchScore[1]) >= 0) {
+              //console.log("Loser score is alright for 16: "+ ToMatchScore[1]);
+              Check16 = 1;
+            } else {
+              Check16 = 0;
+            }
+          }
+          if (ToMatchScore[0] === "19") {
+            if (Match19.indexOf(ToMatchScore[1]) >= 0) {
+              //console.log("Loser score is alright for 19: "+ ToMatchScore[1]);
+              Check19 = 1;
+            } else {
+              Check19 = 0;
+            }
+          }
+          if (ToMatchScore[0] === "22") {
+            if (Match22.indexOf(ToMatchScore[1]) >= 0) {
+              //console.log("Loser score is alright for 22: "+ ToMatchScore[1]);
+              Check22 = 1;
+            } else {
+              Check22 = 0;
+            }
+          }
+    
+          //console.log("Found 16: "+Check16);
+          //console.log("Found 19: "+Check19);
+          //console.log("Found 22: "+Check22);
+    
+          ScoreAfterFilter = ToMatchScore[0] + "-" + ToMatchScore[1];
+          /*
+          console.log("WinnerScore: "+ ToMatchScore[0]+" LoserScore: "+ ToMatchScore[1]);
+          console.log(ScoreAfterFilter);
+    
+          End of score check 
+          */
 
-      ScoreAfterFilter = ToMatchScore[0] + "-" + ToMatchScore[1];
-      /*
-      console.log("WinnerScore: "+ ToMatchScore[0]+" LoserScore: "+ ToMatchScore[1]);
-      console.log(ScoreAfterFilter);
-
-      End of score check 
-      */
-      // Checking that the country is correct. 
-      if (CountryCheck.indexOf(country) >= 0) {
-        //console.log("Country is a match");
-        MatchCountry = 1;
-      } else {
-        MatchCountry = 0;
-      }
-      //console.log("Found Country: "+MatchCountry);
-      /*
-      End country check feature.
-      */
+    }
 
       /*
       Now will will process everything to add it to the database.
