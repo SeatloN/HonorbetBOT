@@ -134,8 +134,8 @@ client.on("chat", function(channel, userstate, message, self) {
           if (error) throw error;
           });
           //console.log("Honorbet added! for OT #1");
-          var PrivateMessage = userstate['display-name'] + " : " + "Your honorbet has been added to the pool! for OT #1";
-          client.say("kingofnordic", PrivateMessage).then(function(data) {
+          var PrivateMessage1 = userstate['display-name'] + " : " + "Your honorbet has been added to the pool! for OT #1";
+          client.say("kingofnordic", PrivateMessage1).then(function(data) {
           // data returns [username, message]
         }).catch(function(err) {
           // Send error msg or something if you want. 
@@ -149,8 +149,8 @@ client.on("chat", function(channel, userstate, message, self) {
           if (error) throw error;
           });
           //console.log("Honorbet added! for OT #2");
-          var PrivateMessage = userstate['display-name'] + " : " + "Your honorbet has been added to the pool! for OT #2";
-          client.say("kingofnordic", PrivateMessage).then(function(data) {
+          var PrivateMessage2 = userstate['display-name'] + " : " + "Your honorbet has been added to the pool! for OT #2";
+          client.say("kingofnordic", PrivateMessage2).then(function(data) {
           // data returns [username, message]
         }).catch(function(err) {
           // Send error msg or something if you want. 
