@@ -1,0 +1,12 @@
+{
+  "name": "Honorbet",
+  "version": "1.0.0",
+  "dependencies": {
+    "mysql": "^2.15.0",
+    "regex": "^0.1.1",
+    "tmi.js": "^1.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.3"
+  }
+}
