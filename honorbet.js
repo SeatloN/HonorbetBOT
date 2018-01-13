@@ -18,27 +18,42 @@ client.on("chat", function(channel, userstate, message, self) {
   WinnerScore = ["16","19","22"];
 
   Match16 = ["14","13","12","11","10","9","8","7","6","5","4","3","2","1","0"];
-  Match19 = ["18","17","16","15"];
+  Match19 = ["17","16","15"];
   Match22 = ["20","19","18"];
 
   var Check16;
   var Check19;
   var Check22;
   var MatchCountry;
-
+  var length;
+  var score;
+  var Hyphen = "-";
+  var Space = " ";
   /*
   Code for submit and such.
-
   */
   BetMsgUser = userstate['display-name']; //console.log(BetMsgUser);
   StoreMsg = message; //console.log(StoreMsg);
   WordArray = StoreMsg.split(" "); //console.log(WordArray);
 
+  var validateSplitSpace = function(StoreMsg, Space) {
+    return (StoreMsg || '').split(Space).length > 1;         
+  };
+
+  var validateSplitHyphen = function(StoreMsg, Hyphen) {
+    return (StoreMsg || '').split(Hyphen).length > 1;         
+  }; 
+
 
   if (WordArray[0] === HonorPrefix) {
     //console.log("We have a matched Msg");
     // Lets bring in the whole array to work our magic!
-
+    if (WordArray[1] == undefined) {
+      return;
+    }
+    if (WordArray[2] == undefined) {
+      return;
+    }
     country = WordArray[1].toLowerCase(); //console.log(country);
     score = WordArray[2]; //console.log(score); //console.log(score.length);
 
@@ -53,9 +68,8 @@ client.on("chat", function(channel, userstate, message, self) {
     /*
     End country check feature.
     */
-    if (MatchCountry === 1 && score.length >= 4 && score.length <= 5 ) {
-
-          // We are going to start matching everything to just get correct values in score ! 
+    if (MatchCountry === 1) {
+          
 
           ToMatchScore = score.split("-");
           if (WinnerScore.indexOf(ToMatchScore[0]) >= 0) {
