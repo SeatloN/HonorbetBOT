@@ -112,15 +112,49 @@ client.on("chat", function(channel, userstate, message, self) {
       Now will will process everything to add it to the database.
       */
       if (MatchCountry === 1 && Check16 === 1) {
-        console.log("We have a Good BET! within normal time!");
+        //console.log("We have a Good BET! within normal time!");
+        // Creating the QUERY
+        var honorbet  = {user_name: userstate['display-name'], country: country.toUpperCase(), score: ScoreAfterFilter, matchid: "Normal Score"};
+        var query = connection.query('INSERT INTO honorbets SET ?', honorbet, function (error, results, fields) {
+          if (error) throw error;
+          });
+          //console.log("Honorbet added!");
+          var PrivateMessage = userstate['display-name'] + " : " + "Your honorbet has been added to the pool!";
+          client.say("kingofnordic", PrivateMessage).then(function(data) {
+          // data returns [username, message]
+        }).catch(function(err) {
+          // Send error msg or something if you want. 
+        });
       }
 
       if (MatchCountry === 1 && Check19 === 1) {
-        console.log("We have a Good BET! within First overtime!");
+        //console.log("We have a Good BET! within First overtime!");
+        var honorbetOT1  = {user_name: userstate['display-name'], country: country.toUpperCase(), score: ScoreAfterFilter, matchid: "OT #1 Score"};
+        var queryOT1 = connection.query('INSERT INTO honorbets SET ?', honorbetOT1, function (error, results, fields) {
+          if (error) throw error;
+          });
+          //console.log("Honorbet added! for OT #1");
+          var PrivateMessage = userstate['display-name'] + " : " + "Your honorbet has been added to the pool! for OT #1";
+          client.say("kingofnordic", PrivateMessage).then(function(data) {
+          // data returns [username, message]
+        }).catch(function(err) {
+          // Send error msg or something if you want. 
+        });
       }
 
       if (MatchCountry === 1 && Check22 === 1) {
-        console.log("We have a Good BET! within Secound overtime!");
+        //console.log("We have a Good BET! within Secound overtime!");
+        var honorbetOT2  = {user_name: userstate['display-name'], country: country.toUpperCase(), score: ScoreAfterFilter, matchid: "OT #2 Score"};
+        var queryOT2 = connection.query('INSERT INTO honorbets SET ?', honorbetOT2, function (error, results, fields) {
+          if (error) throw error;
+          });
+          //console.log("Honorbet added! for OT #2");
+          var PrivateMessage = userstate['display-name'] + " : " + "Your honorbet has been added to the pool! for OT #2";
+          client.say("kingofnordic", PrivateMessage).then(function(data) {
+          // data returns [username, message]
+        }).catch(function(err) {
+          // Send error msg or something if you want. 
+        });
       }
 
     }
