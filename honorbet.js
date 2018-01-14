@@ -4,9 +4,10 @@ var util = require('util');
 var oauth = require('./oauth.js');
 var DB = require('./mysql.js');
 
-Prefix = "#";
-Trigger = "honorbet";
 HonorPrefix = "#honorbet";
+MapBanPrefix = "#banmap";
+MvpVotePrefix = "#mvp";
+
 
 client.on("chat", function(channel, userstate, message, self) {
   if (self) return;
@@ -175,7 +176,81 @@ client.on("chat", function(channel, userstate, message, self) {
           // Send error msg or something if you want. 
         });
       }
-
     }
+});
+// Now lets write function for mapban.
+client.on("chat", function(channel, userstate, message, self) {
+  if (self) return;
+  //console.log("Wee we see messages!");
 
+  // Here we define accepted entries into mapban.
+  AcceptedMaps = ["mirage","train","cbble","inferno","cache","overpass"];
+  var InDB;
+  var results;
+  // Lets try and get the message we want.
+  BanMsgUser = userstate['display-name']; //console.log(BanMsgUser);
+  StoreMsgBan = message; //console.log(StoreMsgBan);
+  BanWordArray = StoreMsgBan.split(" "); //console.log(BanWordArray);
+  
+
+  if (BanWordArray[0] === MapBanPrefix) {
+    // Escape any undefined issues.
+    if (BanWordArray[1] == undefined) {
+      return;
+    }
+    //console.log(BanWordArray[1]);
+    MapName = BanWordArray[1].toLowerCase();
+    /*
+    this part will filter the mapname out. And make sure that it is in the AcceptedMaps ARRAY.
+    */
+    if (AcceptedMaps.indexOf(MapName) >= 0) {
+      //console.log(BanMsgUser+" banned: "+MapName.toUpperCase());
+      // Create a return msg.
+      /**/
+
+      //console.log(SaveFile);
+      
+      // Check if user have made a bet.
+      var EntryCheck = BanMsgUser;
+      var QueryEntryCheck = connection.query('SELECT * FROM `mapbans` WHERE `user_name` = ?', EntryCheck, function(error,results) {
+        if (error) throw error;
+      
+      UserCheck = results;
+      //console.log(results);
+      //console.log(UserCheck.length);
+        if (UserCheck.length <= 0) {
+          //console.log("No more votes.");
+
+          // Insert section.
+        
+          InsertToDB = {user_name: BanMsgUser, mapname: MapName.toUpperCase(), matchid: "TEST"};
+          InsertQuery = connection.query('INSERT INTO mapbans SET ?', InsertToDB, function (error, results, fields) {
+            if (error) throw error;
+            //console.log("Ban is saved!");
+            client.say("kingofnordic", BanMsgUser+" Thank you for your vote!").then(function(data) {
+                // data returns [username, message]
+              }).catch(function(err) {
+            });
+          });
+        } else {
+          //console.log("User has already made there ban.");
+          client.say("kingofnordic", BanMsgUser+" You have already casted your vote.").then(function(data) {
+            // data returns [username, message]
+            }).catch(function(err) {
+          });
+        }
+      });
+      /*
+      BanReturnMsg = BanMsgUser+" You banned: "+MapName.toUpperCase();
+      client.say("kingofnordic", BanReturnMsg).then(function(data) {
+        // data returns [username, message]
+      }).catch(function(err) {
+        // Send error msg or something if you want. 
+      });
+      */
+      /**/
+    } else {
+      return;
+    }
+  }
 });
