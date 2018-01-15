@@ -1,9 +1,21 @@
 var fs = require('fs');
-var Regex = require("regex");
 var util = require('util');
 var oauth = require('./oauth.js');
 var DB = require('./mysql.js');
+var Pusher = require('pusher');
 
+var pusher = new Pusher({
+  appId: '',
+  key: '',
+  secret: '',
+  cluster: '',
+  encrypted: true
+});
+
+
+/*
+var WsPush = require('./pusher-auth.js');
+*/
 HonorPrefix = "#honorbet";
 MapBanPrefix = "#banmap";
 MvpVotePrefix = "#mvp";
@@ -138,6 +150,14 @@ client.on("chat", function(channel, userstate, message, self) {
         var query = connection.query('INSERT INTO honorbets SET ?', honorbet, function (error, results, fields) {
           if (error) throw error;
           });
+
+          pusher.trigger('honor_bet', 'bet_saved', {
+            "user": BetMsgUser,
+            "country": country.toUpperCase(),
+            "score": ScoreAfterFilter,
+            "message": "Bet is saved!"
+          });
+
           //console.log("Honorbet added!");
           var PrivateMessage = userstate['display-name'] + " : " + "Your honorbet has been added to the pool!";
           client.say("kingofnordic", PrivateMessage).then(function(data) {
