@@ -1,6 +1,9 @@
 {
   "name": "Honorbet",
   "version": "1.0.0",
+  "scripts": {
+    "start": "node main.js"
+  },
   "dependencies": {
     "mysql": "^2.15.0",
     "pusher": "^1.5.1",
