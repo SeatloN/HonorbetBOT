@@ -5,15 +5,18 @@ var DB = require('./mysql.js');
 var Pusher = require('pusher');
 
 var pusher = new Pusher({
-  appId: '',
-  key: '',
-  secret: '',
-  cluster: '',
+  appId: '457914',
+  key: 'c73c289a37ad36edf6b9',
+  secret: '0b343e1e6b8323fe5e3a',
+  cluster: 'eu',
   encrypted: true
 });
 
 Active = 0;
 
+/*
+var WsPush = require('./pusher-auth.js');
+*/
 HonorPrefix = "#honorbet";
 MapBanPrefix = "#banmap";
 MvpVotePrefix = "#mvp";
@@ -26,12 +29,18 @@ client.on("chat", function(channel, userstate, message, self) {
   */
   CountryCheck = ["sweden", "norway", "denmark", "finland"];
   LoserScore = ["20","19","18","17","16","15","14","13","12","11","10","9","8","7","6","5","4","3","2","1","0"];
-  WinnerScore = ["16","19","22"];
+  WinnerScore = ["4","5","6","16","19","22"];
 
+  Match4 = ["4"];
+  Match5 = ["3","2","1","0"];
+  Match6 = ["5","4"];
   Match16 = ["14","13","12","11","10","9","8","7","6","5","4","3","2","1","0"];
   Match19 = ["17","16","15"];
   Match22 = ["20","19","18"];
 
+  var Check4;
+  var Check5;
+  var Check6;
   var Check16;
   var Check19;
   var Check22;
@@ -97,7 +106,34 @@ client.on("chat", function(channel, userstate, message, self) {
           } else {
             LoseScore = 0;
           }
-    
+          
+          if (ToMatchScore[0] === "4") {
+            // Check if loser is in the 
+            if (Match4.indexOf(ToMatchScore[1]) >= 0) {
+              //console.log("Loser score is alright for 16: "+ ToMatchScore[1]);
+              Check4 = 1;
+            } else {
+              Check4 = 0;
+            }
+          }
+          if (ToMatchScore[0] === "5") {
+            // Check if loser is in the 
+            if (Match5.indexOf(ToMatchScore[1]) >= 0) {
+              //console.log("Loser score is alright for 16: "+ ToMatchScore[1]);
+              Check5 = 1;
+            } else {
+              Check5 = 0;
+            }
+          }
+          if (ToMatchScore[0] === "6") {
+            // Check if loser is in the 
+            if (Match6.indexOf(ToMatchScore[1]) >= 0) {
+              //console.log("Loser score is alright for 16: "+ ToMatchScore[1]);
+              Check6 = 1;
+            } else {
+              Check6 = 0;
+            }
+          }
           if (ToMatchScore[0] === "16") {
             // Check if loser is in the 
             if (Match16.indexOf(ToMatchScore[1]) >= 0) {
@@ -137,10 +173,78 @@ client.on("chat", function(channel, userstate, message, self) {
           */
 
     }
-
       /*
       Now will will process everything to add it to the database.
       */
+      if (Active === 1 && MatchCountry === 1 && Check4 === 1) {
+        //console.log("We have a Good BET! within normal time!");
+        // Creating the QUERY
+        var honorbet  = {user_name: userstate['display-name'], country: country.toUpperCase(), score: ScoreAfterFilter, matchid: "Normal Score"};
+        var query = connection.query('INSERT INTO honorbets SET ?', honorbet, function (error, results, fields) {
+          if (error) throw error;
+          });
+
+          pusher.trigger('honor_bet', 'bet_saved', {
+            "user": BetMsgUser,
+            "country": country.toUpperCase(),
+            "score": ScoreAfterFilter,
+            "message": "Bet is saved!"
+          });
+
+          //console.log("Honorbet added!");
+          var PrivateMessage = userstate['display-name'] + " : " + "Your honorbet has been added to the pool!";
+          client.say(channel, PrivateMessage).then(function(data) {
+          // data returns [username, message]
+        }).catch(function(err) {
+          // Send error msg or something if you want. 
+        });
+      }
+      if (Active === 1 && MatchCountry === 1 && Check5 === 1) {
+        //console.log("We have a Good BET! within normal time!");
+        // Creating the QUERY
+        var honorbet  = {user_name: userstate['display-name'], country: country.toUpperCase(), score: ScoreAfterFilter, matchid: "Normal Score"};
+        var query = connection.query('INSERT INTO honorbets SET ?', honorbet, function (error, results, fields) {
+          if (error) throw error;
+          });
+
+          pusher.trigger('honor_bet', 'bet_saved', {
+            "user": BetMsgUser,
+            "country": country.toUpperCase(),
+            "score": ScoreAfterFilter,
+            "message": "Bet is saved!"
+          });
+
+          //console.log("Honorbet added!");
+          var PrivateMessage = userstate['display-name'] + " : " + "Your honorbet has been added to the pool!";
+          client.say(channel, PrivateMessage).then(function(data) {
+          // data returns [username, message]
+        }).catch(function(err) {
+          // Send error msg or something if you want. 
+        });
+      }
+      if (Active === 1 && MatchCountry === 1 && Check6 === 1) {
+        //console.log("We have a Good BET! within normal time!");
+        // Creating the QUERY
+        var honorbet  = {user_name: userstate['display-name'], country: country.toUpperCase(), score: ScoreAfterFilter, matchid: "Normal Score"};
+        var query = connection.query('INSERT INTO honorbets SET ?', honorbet, function (error, results, fields) {
+          if (error) throw error;
+          });
+
+          pusher.trigger('honor_bet', 'bet_saved', {
+            "user": BetMsgUser,
+            "country": country.toUpperCase(),
+            "score": ScoreAfterFilter,
+            "message": "Bet is saved!"
+          });
+
+          //console.log("Honorbet added!");
+          var PrivateMessage = userstate['display-name'] + " : " + "Your honorbet has been added to the pool!";
+          client.say(channel, PrivateMessage).then(function(data) {
+          // data returns [username, message]
+        }).catch(function(err) {
+          // Send error msg or something if you want. 
+        });
+      }
       if (Active === 1 && MatchCountry === 1 && Check16 === 1) {
         //console.log("We have a Good BET! within normal time!");
         // Creating the QUERY
