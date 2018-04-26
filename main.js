@@ -5,9 +5,9 @@ var DB = require('./mysql.js');
 var Pusher = require('pusher');
 
 var pusher = new Pusher({
-  appId: '457914',
-  key: 'c73c289a37ad36edf6b9',
-  secret: '0b343e1e6b8323fe5e3a',
+  appId: '',
+  key: '',
+  secret: '',
   cluster: 'eu',
   encrypted: true
 });
