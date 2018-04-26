@@ -9,6 +9,8 @@ The main function ATM is that it takes a correctly formatted message and inserts
 
 Project ideés and such is on https://trello.com/b/zsDgcm1L/king-of-nordic-bot
 
+Homepage for project is http://honorbet.seatlon.eu
+
 It is specially built to give the viewers better and funnier time in the channel. 
 
 https://twitch.tv/kingofnordic
